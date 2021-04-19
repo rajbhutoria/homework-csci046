@@ -1,14 +1,17 @@
 '''
 This file implements the Node and BinaryTree classes.
-These two classes are the building blocks for the BST, AVLTree, and Heap data structures.
-It is crucial to get these implemented correctly in order to be able to implement the other data structures.
+These two classes are the building blocks for the BST,
+AVLTree, and Heap data structures.
+It is crucial to get these implemented correctly in order
+to be able to implement the other data structures.
 '''
 
 
 class Node():
     '''
     You do not have to implement anything within this class.
-    Given a node t, you can visualize the node by running str(t) in the python interpreter.
+    Given a node t, you can visualize the node by
+    running str(t) in the python interpreter.
     This is a key method to perform debugging,
     so you should get familiar with how to visualize these strings.
     '''
@@ -45,7 +48,8 @@ class BinaryTree():
     def __init__(self, root=None):
         '''
         Construct a BinaryTree, possibly with a single element in it.
-        Note that for an ordinary BinaryTree, we cannot insert more than one element in the constructor,
+        Note that for an ordinary BinaryTree, we cannot
+        insert more than one element in the constructor,
         but for the BST (and other tree types) we can.
         '''
         if root:
@@ -61,8 +65,11 @@ class BinaryTree():
 
     def print_tree(self, traversal_type):
         '''
-        There are three primary types of tree traversals: preorder, inorder, and postorder.
-        All three of these traversals are implemented for you as a reference on how to write recursive functions on recursive data structures.
+        There are three primary types of tree traversals:
+        preorder, inorder, and postorder.
+        All three of these traversals are implemented for you
+        as a reference on how to write recursive functions
+        on recursive data structures.
         '''
         if traversal_type == 'preorder':
             return self.preorder_print(self.root, '')
@@ -71,7 +78,7 @@ class BinaryTree():
         elif traversal_type == 'postorder':
             return self.postorder_print(self.root, '')
         else:
-            raise ValueError('Traversal type ' + str(traversal_type) + ' is not supported.')
+            raise ValueError('This traversal type is not supported.')
 
     def preorder_print(self, start, traversal):
         '''
@@ -109,12 +116,16 @@ class BinaryTree():
         but instead of printing the tree,
         it returns the contents of the tree as a list.
 
-        A general programming principle is that a function should return its results
+        A general programming principle is that
+        a function should return its results
         rather than print them whenever possible.
         If a function returns its results,
-        we can always print the returned results if we need to visualize them.
-        But by returning the results we can also do more computations on the results if needed.
-        Many of the test cases for more complicated tree functions rely on this to_list function,
+        we can always print the returned results if we
+        need to visualize them.
+        But by returning the results we can also do
+        more computations on the results if needed.
+        Many of the test cases for more complicated tree
+        functions rely on this to_list function,
         so it is import to implement it correctly.
 
         FIXME:
@@ -127,8 +138,7 @@ class BinaryTree():
         elif traversal_type == 'postorder':
             return self.postorder(self.root, [])
         else:
-            return ValueError('Only preorder, inorder, or postorder traversal types are supported.')
-
+            return ValueError('This traversal type is not supported.')
 
     def preorder(self, start, traversal):
         '''
@@ -141,7 +151,6 @@ class BinaryTree():
             traversal = self.preorder(start.right, traversal)
         return traversal
 
-
     def inorder(self, start, traversal):
         '''
         FIXME:
@@ -152,7 +161,6 @@ class BinaryTree():
             traversal += [start.value]
             traversal = self.inorder(start.right, traversal)
         return traversal
-
 
     def postorder(self, start, traversal):
         '''
@@ -165,14 +173,12 @@ class BinaryTree():
             traversal += [start.value]
         return traversal
 
-
     def __len__(self):
         '''
         Returns the number of elements contained in the tree.
         Recall that `tree.__len__()` will desugar to `size(len)`.
         '''
         return BinaryTree.__len__helper(self.root)
-
 
     @staticmethod
     def __len__helper(node):
@@ -189,11 +195,11 @@ class BinaryTree():
                 i += BinaryTree.__len__helper(node.right)
         return i
 
-
     def height(self):
         '''
         Returns the height of the tree.
-        Recall that the height is the maximum length from the root to a leaf node.
+        Recall that the height is the
+        maximum length from the root to a leaf node.
 
         FIXME:
         Implement this function.
@@ -202,7 +208,6 @@ class BinaryTree():
         See how the __len__ method calls its helper staticmethod.
         '''
         return BinaryTree._height(self.root)
-
 
     @staticmethod
     def _height(node):
@@ -218,4 +223,4 @@ class BinaryTree():
             left = BinaryTree._height(node.left)
         elif node.right:
             right = BinaryTree._height(node.right)
-        return 1 + max(left,right)
+        return 1 + max(left, right)
