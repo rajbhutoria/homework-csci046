@@ -120,24 +120,51 @@ class BinaryTree():
         FIXME:
         Implement this function by modifying the _print functions above.
         '''
+        if traversal_type == 'preorder':
+            return self.preorder(self.root, [])
+        elif traversal_type == 'inorder':
+            return self.inorder(self.root, [])
+        elif traversal_type == 'postorder':
+            return self.postorder(self.root, [])
+        else:
+            return ValueError('Only preorder, inorder, or postorder traversal types are supported.')
+
 
     def preorder(self, start, traversal):
         '''
         FIXME:
         Implement this function by modifying the _print functions above.
         '''
+        if start:
+            traversal += [start.value]
+            traversal = self.preorder(start.left, traversal)
+            traversal = self.preorder(start.right, traversal)
+        return traversal
+
 
     def inorder(self, start, traversal):
         '''
         FIXME:
         Implement this function by modifying the _print functions above.
         '''
+        if start:
+            traversal = self.inorder(start.left, traversal)
+            traversal += [start.value]
+            traversal = self.inorder(start.right, traversal)
+        return traversal
+
 
     def postorder(self, start, traversal):
         '''
         FIXME:
         Implement this function by modifying the _print functions above.
         '''
+        if start:
+            traversal = self.postorder(start.left, traversal)
+            traversal = self.postorder(start.right, traversal)
+            traversal += [start.value]
+        return traversal
+
 
     def __len__(self):
         '''
@@ -146,12 +173,22 @@ class BinaryTree():
         '''
         return BinaryTree.__len__helper(self.root)
 
+
     @staticmethod
     def __len__helper(node):
         '''
         FIXME:
         Implement this function.
         '''
+        i = 0
+        if node:
+            i += 1
+            if node.left:
+                i += BinaryTree.__len__helper(node.left)
+            if node.right:
+                i += BinaryTree.__len__helper(node.right)
+        return i
+
 
     def height(self):
         '''
@@ -164,6 +201,8 @@ class BinaryTree():
         HINT:
         See how the __len__ method calls its helper staticmethod.
         '''
+        return BinaryTree._height(self.root)
+
 
     @staticmethod
     def _height(node):
@@ -171,3 +210,12 @@ class BinaryTree():
         FIXME:
         Implement this function.
         '''
+        left = -1
+        right = -1
+        if not node:
+            return -1
+        elif node.left:
+            left = BinaryTree._height(node.left)
+        elif node.right:
+            right = BinaryTree._height(node.right)
+        return 1 + max(left,right)
